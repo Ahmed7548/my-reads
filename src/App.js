@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useEffect, useState } from "react";
+import Header from "./components/Header/Header";
+// import * as BooksAPI from './BooksAPI'
+// import './App.css'
+import BookShelfs from "./components/book -shelf/BookShelfs";
+import * as BooksAPI from "./BooksAPI";
+import { Route, Routes } from "react-router";
 
-function App() {
+const BooksApp = () => {
+  const [isLoading, setIsloading] = useState(true);
+  const [books, setBooks] = useState([]);
+  // const [dataUpdate, setUpdatedData] = useState([])
+
+  useEffect(() => {
+    BooksAPI.getAll().then((resolve) => {
+      setBooks(resolve)
+      setIsloading(false)
+    });
+    BooksAPI.update({id:"nggnmAEACAAJ"},"wantToRead").then(resolve=>{console.log(resolve)})
+  }, []);
+
+  const WantToRead = books.filter((book) => book.shelf === "wantToRead");
+  const read = books.filter((book) => book.shelf === "read");
+  const currReading = books.filter((book) => book.shelf === "currentlyReading");
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+      <Fragment>
+      {!isLoading &&
+        <Fragment><Header />
+          <Routes>
+             <Route path="/" element={<p>welcome to my reads app</p>} />
+            <Route
+              path="/want-to-read"
+              element={
+                <BookShelfs
+                  books={WantToRead}
+                />
+              }
+            />
+            <Route path="/curr-reading" element={<BookShelfs books={currReading} />} />
+            <Route path="/read" element={<BookShelfs books={read} />} />
+            {/* <Route path="/search" element={}/> */}
+          </Routes></Fragment>}
 
-export default App;
+    </Fragment>
+  );
+};
+
+export default BooksApp;

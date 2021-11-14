@@ -1,0 +1,10 @@
+.shelf{
+    width: 100%;
+    min-height: calc(100vh - 5rem);
+    height: fit-content;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
