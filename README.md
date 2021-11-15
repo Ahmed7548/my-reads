@@ -6,6 +6,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+## project description
+
+This is an React App reflecting react ability to make single page application and using routing to navigate in the app and manage url, my reads app is a book reading tracker app where you can add books to yoour reads,currently read and want to read shelfs and search for new books to add
+
+## `npm install`
+
+install all required dependencies
+
 ### `npm start`
 
 Runs the app in the development mode.\

@@ -20,19 +20,22 @@ const SearchPage = (props) => {
   const [isSearchInputEmpty, setIsSearchInputEmpty] = useState(true);
 
   //fetching search data on pressing enter (onSearch)
-  const searchHandle = (e) => {
-    if (e.code === "Enter") {
-      BooksAPI.search(searchValue.trim()).then((resolve) => {
+  const searchHandle = (search) => {
+   
+    BooksAPI.search(search.trim()).then((resolve) => {
         setError(null);
         if (resolve.error) {
           setError(true);
-        } else {
+        }
+        else {
           checkSearch(resolve);
           setError(false);
           setIsSearchInputEmpty(false);
         }
+    }).catch((e)=> {
+      setError(true)
       });
-    }
+    
   };
   //controlling component value and search result
   const changeHandler = (e) => {
@@ -40,6 +43,7 @@ const SearchPage = (props) => {
     if (e.target.value === "") {
       setIsSearchInputEmpty(true);
     }
+    searchHandle(e.target.value)
   };
 
   return (
@@ -51,7 +55,6 @@ const SearchPage = (props) => {
             type="search"
             value={searchValue}
             placeholder="search for books"
-            onKeyUp={searchHandle}
             onChange={changeHandler}
           />
         </div>
