@@ -1,0 +1,18 @@
+.error{
+   width: 100%;
+    height: calc(100vh - 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ }
+
+ .error h2{
+     text-transform: uppercase;
+     color: rgba(192, 2, 2, 0.767);
+ }
+
+ .error p{
+     text-transform: capitalize;
+     color:rgba(192, 2, 2, 0.767) ;
+ }

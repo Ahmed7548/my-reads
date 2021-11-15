@@ -6,5 +6,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: baseline;
+}
+
+.feedback{
+    font-size: 20px;
+    text-transform: uppercase;
+    color: rgb(17, 51, 85);
 }

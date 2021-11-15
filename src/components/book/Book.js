@@ -5,10 +5,14 @@ import PropTypes from 'prop-types'
 const Book = (props) => {
 
     const onChoseHandler = (value) => {
-        console.log(value)
+        const data= {
+            id: props.book.id,
+            newShelf:value
+        }
+        //chaining required data to update shelf up
+        props.onChangeShelf(data)
     }
-   
-    console.log(props.book)
+
     return (
         <div className={classes.book}>
             <div className={classes["book-cover"]} style={
@@ -20,8 +24,8 @@ const Book = (props) => {
                 <Select onChose={onChoseHandler} bookShelf={props.book.shelf} />
             </div>
             <div>
-                <h4 className={classes["book-name"]}>book name</h4>
-                <p className={classes["book-author"]}> a great Author</p>
+                <h4 className={classes["book-name"]}>{props.book.title}</h4>
+                <p className={classes["book-author"]}> {props.book.authors&&props.book.authors.join(", ")}</p>
             </div>
             
         </div>
@@ -30,7 +34,7 @@ const Book = (props) => {
 
 Book.propTypes={
     book: PropTypes.object.isRequired,
-    
+    onChangeShelf: PropTypes.func.isRequired
 }
 
 

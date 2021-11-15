@@ -3,8 +3,14 @@ import { FaCheck } from "react-icons/fa";
 import { Fragment, useState, useEffect } from "react";
 import Option from "./Option";
 import PropTypes from "prop-types";
+
+
+
+
+
 const Select = (props) => {
   const [drpDownActive, setDrpDownActive] = useState(false);
+  const [drpDownValue, setDrpDownValue]=useState(props.bookShelf)
 
   useEffect(() => {
     const hideDpDownlist =e=> {
@@ -27,7 +33,10 @@ const Select = (props) => {
   //chain selected value up
   const optionClickHandle = (value) => {
     props.onChose(value);
+    //removing the dpDown list
     setDrpDownActive(false);
+    //setting the value of the drop down
+    setDrpDownValue(value)
   };
 
   const drpDownClassName = drpDownActive
@@ -43,16 +52,16 @@ const Select = (props) => {
 
       <div className={drpDownClassName} >
         <Option value="currentlyReading" onClick={optionClickHandle}>
-          {props.bookShelf==="currentlyReading" &&<FaCheck />}  Currently Reading
+          {drpDownValue==="currentlyReading" &&<FaCheck />}  Currently Reading
         </Option>
         <Option value="wantToRead" onClick={optionClickHandle}>
-        {props.bookShelf==="wantToRead" &&<FaCheck />} Want to Read
+        {drpDownValue==="wantToRead" &&<FaCheck />} Want to Read
         </Option>
         <Option value="read" onClick={optionClickHandle}>
-        {props.bookShelf==="read" &&<FaCheck />} Read
+        {drpDownValue==="read"&&<FaCheck />} Read
         </Option>
         <Option value="none" onClick={optionClickHandle}>
-        {props.bookShelf==="none" &&<FaCheck />} None
+           None
         </Option>
       </div>
     </Fragment>
@@ -61,6 +70,7 @@ const Select = (props) => {
 
 Select.propTypes = {
   onChose: PropTypes.func.isRequired,
+  bookShelf:PropTypes.string
 };
 
 export default Select;
