@@ -42,7 +42,10 @@ const BooksApp = () => {
   if (error) {
     return (
       <Routes>
-        <Route path="*" element={<FetchingError/>}/>
+        <Route path="*" element={<Fragment>
+          <Header/>
+          <FetchingError title="failed to fetch"> check your internet connection</FetchingError>
+          </Fragment>} />
         </Routes>
     )
   }

@@ -1,13 +1,11 @@
 import Classes from "./FetchingError.module.css";
-import Header from "../Header/Header";
 
-const FetchingError = () => {
+const FetchingError = (props) => {
   return (
     <div>
-      <Header />
       <div className={Classes.error}>
-        <h2>error in fetching data</h2>
-        <p>please check your internet connection</p>
+        <h2>{props.title}</h2>
+        <p>{props.children}</p>
       </div>
     </div>
   );

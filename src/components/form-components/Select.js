@@ -52,16 +52,16 @@ const Select = (props) => {
 
       <div className={drpDownClassName} >
         <Option value="currentlyReading" onClick={optionClickHandle}>
-          {drpDownValue==="currentlyReading" &&<FaCheck />}  Currently Reading
+            Currently Reading   {drpDownValue==="currentlyReading" &&<FaCheck />}
         </Option>
         <Option value="wantToRead" onClick={optionClickHandle}>
-        {drpDownValue==="wantToRead" &&<FaCheck />} Want to Read
+         Want to Read    {drpDownValue==="wantToRead" &&<FaCheck />}
         </Option>
         <Option value="read" onClick={optionClickHandle}>
-        {drpDownValue==="read"&&<FaCheck />} Read
+         Read   {drpDownValue==="read"&&<FaCheck />}
         </Option>
         <Option value="none" onClick={optionClickHandle}>
-           None
+          None    {!drpDownValue&&<FaCheck/>}
         </Option>
       </div>
     </Fragment>

@@ -29,6 +29,8 @@
   pointer-events: none;
   opacity: 0;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: opacity 0.3s linear;
+  overflow: hidden;
 }
 
 .dropDown.active {
@@ -39,7 +41,7 @@
 .dropDown span {
   width: 12rem;
   padding: 0.3rem;
-  border: 1px solid rgb(0, 0, 0);
+  /* border: 1px solid rgb(0, 0, 0); */
   cursor: pointer;
 }
 
