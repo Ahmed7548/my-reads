@@ -9,35 +9,54 @@ import SearchPage from "./components/search/SearchPage";
 const BooksApp = () => {
   const [isLoading, setIsloading] = useState(true);
   const [books, setBooks] = useState([]);
-  const [isdataUpdated, setIsdataUpdated] = useState(true);
   const [error, setError] = useState(false)
-  
-  
-// fetching data throuht the API 
-//useEffect to ensure that data is refetched when there is an update
-  useEffect(() => {
-    if (isdataUpdated) {
-      BooksAPI.getAll().then((resolve) => {
-        setBooks(resolve);
-        setIsloading(false);
-        setIsdataUpdated(false);
-      }).catch((e) => {
-        console.log(e)
-        setError(true)
-      });
-    }
-  }, [isdataUpdated]);
-  //update data on selecting new shelf
-  const changeShelfHandle = (data) => {
-    BooksAPI.update({ id: data.id }, data.newShelf).then(() => {
-      setIsdataUpdated(true)
-    });
-  };
+  const [isBookAdded, setIsBookAdded] = useState(true);
+
 
   const WantToRead = books.filter((book) => book.shelf === "wantToRead");
   const read = books.filter((book) => book.shelf === "read");
   const currReading = books.filter((book) => book.shelf === "currentlyReading");
 
+  
+  
+// fetching data throuht the API 
+//useEffect to ensure that data is refetched when there is an update
+  useEffect(() => {
+    if(isBookAdded){
+      BooksAPI.getAll().then((resolve) => {
+        setBooks(resolve);
+        setIsloading(false);
+        setIsBookAdded(false);
+      }).catch((e) => {
+        console.log(e)
+        setError(true)
+      });
+    }
+  }, [isBookAdded]);
+  //update data on selecting new shelf
+  const changeShelfHandle = (data) => {
+    BooksAPI.update({ id: data.id }, data.newShelf).then(() => {
+    });
+    setBooks(prevState => prevState.map(book => {
+      if (data.id === book.id) {
+        book.shelf=data.newShelf
+        return {
+          ...book
+        }
+      } else {
+        return book
+      }
+    })
+    )
+  };
+
+  const addingBookFromSearch = (data) => {
+    BooksAPI.update({ id: data.id }, data.newShelf).then((resolve) => {
+      setIsBookAdded(true)
+    });
+  }
+
+  
 
   if (error) {
     return (
@@ -63,6 +82,7 @@ const BooksApp = () => {
                 <BookShelfs
                   books={WantToRead}
                   onChangeShelf={changeShelfHandle}
+                  
                 />
               }
             />
@@ -81,7 +101,7 @@ const BooksApp = () => {
                 <BookShelfs books={read} onChangeShelf={changeShelfHandle} />
               }
             />
-            <Route path="/search" element={<SearchPage myBooks={books} onChangeShelf={changeShelfHandle} />}/>
+            <Route path="/search" element={<SearchPage myBooks={books} onChangeShelf={addingBookFromSearch} />}/>
           </Routes>
         </Fragment>
       )}
